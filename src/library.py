@@ -62,14 +62,36 @@ class Library:
 
     def display_books(self):
         """
-        Отображает список всех книг.
+        Отображает список всех книг в виде таблицы.
         """
         if not self.books:
             print("Библиотека пуста.")
             return
+
+        # Заголовок таблицы
+        header = f"{'ID':<5} {'Название':<30} {'Автор':<20} {'Год':<6} {'Статус':<10}"
+        print(header)
+        print("-" * len(header))
+
+        # Вывод книг
         for book in self.books:
-            print(
-                f"ID: {book.id}, Название: {book.title}, Автор: {book.author}, Год: {book.year}, Статус: {book.status}")
+            # установка длины строки для выравнивания
+            print(f"{book.id:<5} {book.title:<30} {book.author:<20} {book.year:<6} {book.status:<10}")
+
+        # Подвал таблицы
+        print("-" * len(header))
+        print(f"Всего книг: {len(self.books)}")
+
+    # def display_books(self):
+    #     """
+    #     Отображает список всех книг.
+    #     """
+    #     if not self.books:
+    #         print("Библиотека пуста.")
+    #         return
+    #     for book in self.books:
+    #         print(
+    #             f"ID: {book.id}, Название: {book.title}, Автор: {book.author}, Год: {book.year}, Статус: {book.status}")
 
     def update_status(self, book_id: int, status_input: str):
         """
