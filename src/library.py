@@ -1,5 +1,6 @@
 import json
 from typing import List
+
 from src.book import Book
 
 
@@ -7,7 +8,7 @@ class Library:
     """
     Класс для управления библиотекой.
     """
-
+    # Константа для хранения данных
     STORAGE_FILE = "src/storage.json"
 
     def __init__(self):
@@ -67,19 +68,29 @@ class Library:
             print("Библиотека пуста.")
             return
         for book in self.books:
-            print(f"ID: {book.id}, Название: {book.title}, Автор: {book.author}, Год: {book.year}, Статус: {book.status}")
+            print(
+                f"ID: {book.id}, Название: {book.title}, Автор: {book.author}, Год: {book.year}, Статус: {book.status}")
 
-    def update_status(self, book_id: int, status: str):
+    def update_status(self, book_id: int, status_input: str):
         """
-        Изменяет статус книги.
+        Изменяет статус книги. Можно вводить статус словом или цифрой.
         """
+        status_map = {"1": "в наличии", "2": "выдана"}
+
+        # Проверяем, является ли ввод цифрой, иначе оставляем как есть
+        status = status_map.get(status_input, status_input)
+
+        # Проверяем, является ли статус корректным
+        if status not in ["в наличии", "выдана"]:
+            print("Некорректный статус. Введите 'в наличии', 'выдана' или их номера (1, 2).")
+            return
+
+        # Изменяем статус книги по ID и сохраняем изменения статуса
         for book in self.books:
             if book.id == book_id:
-                if status in ["в наличии", "выдана"]:
-                    book.status = status
-                    self._save_books()
-                    print(f"Статус книги с ID {book_id} обновлен на '{status}'.")
-                    return
-                print("Некорректный статус. Доступны: 'в наличии', 'выдана'.")
+                book.status = status
+                self._save_books()
+                print(f"Статус книги с ID {book_id} обновлен на '{status}'.")
                 return
+
         print(f"Книга с ID {book_id} не найдена.")

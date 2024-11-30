@@ -7,11 +7,11 @@ class Book:
     """
 
     def __init__(self, book_id: int, title: str, author: str, year: int, status: str = "в наличии"):
-        self.id = book_id
-        self.title = title
-        self.author = author
-        self.year = year
-        self.status = status
+        self.id = book_id  # id книги
+        self.title = title  # название книги
+        self.author = author  # автор книги
+        self.year = year  # год издания
+        self.status = status  # статус книги(в наличии, недоступна)
 
     def to_dict(self) -> Dict:
         """
